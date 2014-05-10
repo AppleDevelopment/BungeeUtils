@@ -3,6 +3,7 @@ package tc.oc.bungee.utils.commands;
 import java.net.InetSocketAddress;
 import java.util.Collection;
 
+import tc.oc.bungee.utils.BungeeMessages;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
@@ -26,9 +27,9 @@ public class ServerCommands {
     public static void hub(final CommandContext args, CommandSender sender) throws CommandException {
         if(sender instanceof ProxiedPlayer) {
             ((ProxiedPlayer) sender).connect(ProxyServer.getInstance().getServers().get("default"));
-            sender.sendMessage(ChatColor.GREEN + "Teleporting you to the lobby...");
+            BungeeMessages.sendLobbyMessage(sender);
         } else {
-            sender.sendMessage(ChatColor.RED + "Only players may use this command");
+            BungeeMessages.sendLobbyError(sender);
         }
     }
 
@@ -68,7 +69,7 @@ public class ServerCommands {
         ServerInfo serverInfo = ProxyServer.getInstance().constructServerInfo(name, new InetSocketAddress(address, port), "", restricted);
         ProxyServer.getInstance().getServers().put(name, serverInfo);
 
-        sender.sendMessage(ChatColor.GREEN + "Added server " + ChatColor.GOLD + name);
+        BungeeMessages.addServerMessage(sender, name);
     }
 
     @Command(
@@ -83,9 +84,9 @@ public class ServerCommands {
         String name = args.getString(0);
 
         if (ProxyServer.getInstance().getServers().remove(name) == null) {
-            sender.sendMessage(ChatColor.RED + "Could not find server " + ChatColor.GOLD + name);
+        	BungeeMessages.noServerError(sender, name);
         } else {
-            sender.sendMessage(ChatColor.GREEN + "Removed server " + ChatColor.GOLD + name);
+        	BungeeMessages.delServer(sender, name);
         }
     }
 }
