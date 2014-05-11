@@ -7,6 +7,10 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 public class BungeeMessages {
 	
+	/*
+	 * Command Messages
+	 */
+	
 	public static void sendLobbyMessage(CommandSender sender){
 		TextComponent lobbyTP = new TextComponent("Teleporting you to the lobby...");
 		lobbyTP.setColor(ChatColor.GREEN);
@@ -45,4 +49,53 @@ public class BungeeMessages {
 		sender.sendMessage(noServer);
 	}
 	
+	/*
+	 * sk89q command framework messages
+	 */
+	
+	public static void commandPermissionsException(CommandSender sender){
+		TextComponent permissionException = new TextComponent("You don't have permission.");
+		permissionException.setColor(ChatColor.RED);
+		
+		sender.sendMessage(permissionException);
+	}
+	
+	public static void nestedCommandUsageException(CommandSender sender , String usage){
+		TextComponent nestedException = new TextComponent(usage);
+		nestedException.setColor(ChatColor.RED);
+		
+		sender.sendMessage(nestedException);
+	}
+	
+	public static void commandUsageException(CommandSender sender, String message ,String usage){
+		TextComponent usageMessage = new TextComponent(message);
+		TextComponent usageException = new TextComponent(usage);
+		
+		usageMessage.setColor(ChatColor.RED);
+		usageException.setColor(ChatColor.RED);
+		
+		sender.sendMessage(usageMessage);
+		sender.sendMessage(usageException);
+	}
+	
+	public static void numberFormatException(CommandSender sender){
+		TextComponent numberFormat = new TextComponent("Number expected, string received instead.");
+		numberFormat.setColor(ChatColor.RED);
+		
+		sender.sendMessage(numberFormat);
+	}
+	
+	public static void consoleError(CommandSender sender){
+		TextComponent consoleError = new TextComponent("An error has occurred. See console.");
+		consoleError.setColor(ChatColor.RED);
+		
+		sender.sendMessage(consoleError);
+	}
+	
+	public static void commandException(CommandSender sender, String exception){
+		TextComponent consoleError = new TextComponent(exception);
+		consoleError.setColor(ChatColor.RED);
+
+		sender.sendMessage(consoleError);
+	}
 }
