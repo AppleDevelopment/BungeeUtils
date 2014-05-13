@@ -44,9 +44,9 @@ public class ServerCommands {
     public static void serverlist(final CommandContext args, CommandSender sender) throws CommandException {
         final Collection<ServerInfo> servers = BungeeCord.getInstance().getServers().values();
 
-        new SimplePaginatedResult<ServerInfo>("BungeeCord Servers") {
+        new SimplePaginatedResult<ServerInfo>("Connected BungeeCord Servers") {
             @Override public String format(ServerInfo server, int index) {
-                return (index + 1) + ". " + ChatColor.RED + server.getName() + ChatColor.GREEN + server.getAddress().getHostString() + ":" + server.getAddress().getPort();
+                return (index + 1) + ". " + "[" + ChatColor.GOLD + server.getName() + "]" + " " + ChatColor.GREEN + server.getAddress().getHostString() + ":" + server.getAddress().getPort();
             }
         }.display(new BungeeWrappedCommandSender(sender), servers, args.getInteger(0, 1) /* page */);
     }
